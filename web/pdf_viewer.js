@@ -838,7 +838,14 @@ function backtrackBeforeAllVisibleElements(index, views, top) {
     return index;
   }
 
-  var elt = views[index].div;
+  // FIX : Error backtrackBeforeAllVisibleElements DIV undefined for ng2-pdf-viewer :
+  // Need include this library into a private npm registry and fix version
+  // (https://docs.npmjs.com/misc/registry#can-i-run-my-own-private-registry )
+  var elt = views[index] && views[index].div;
+  if (!elt) {
+    return index;
+  }
+
   var pageTop = elt.offsetTop + elt.clientTop;
 
   if (pageTop >= top) {
